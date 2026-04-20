@@ -110,7 +110,7 @@ public class ScreenGame implements Screen {
         movingBackground.draw(main.batch);
 
 
-        bird.draw(main.batch);
+        bird.draw(main.batch , deltaTime);
 
 
         for (Tube tube : tubes) {

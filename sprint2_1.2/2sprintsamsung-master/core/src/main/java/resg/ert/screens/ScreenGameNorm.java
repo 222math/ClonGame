@@ -97,7 +97,7 @@ public class ScreenGameNorm implements Screen {
         movingBackground.draw(main.batch);
         main.batch.draw( floor, 0 , 0 , main.SCR_WIDTH , floorY);
 
-        bird.draw(main.batch);
+        bird.draw(main.batch  , deltaTime);
         for (int i = 0; i < thornsCount; i++) {
             thorns[i].draw(main.batch);
         }

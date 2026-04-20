@@ -59,6 +59,7 @@ public class ScreenMenu implements Screen {
         }
 
 
+        float deltaTime = Gdx.graphics.getDeltaTime();
 
 
         ScreenUtils.clear(1, 0, 0, 1);
@@ -69,7 +70,7 @@ public class ScreenMenu implements Screen {
         textButtonStartGame.drow(main.batch);
         textButtonExit.drow(main.batch);
         textButtonSkin.drow(main.batch);
-        bird.draw(main.batch);
+        bird.draw(main.batch , deltaTime);
         main.batch.end();
     }
     @Override

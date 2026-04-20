@@ -3,7 +3,6 @@ package resg.ert.characters;
 
 import static java.lang.Math.min;
 
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -93,19 +92,16 @@ public class Bird {
             y += 2.5*speedy*deltaTime;
         }
     }
-    int periud;
-    public void draw(Batch batch){
+    float animationTime = 0;
+    float frameDuration = 0.1f; // 0.1 секунды на кадр
+    public void draw(Batch batch , float delta){
 
+        animationTime += delta;
 
-        periud += 1;
-        if (frameCounter == 4){
-            frameCounter = 0;
-        }
-        batch.draw(framesArray[frameCounter] , x , y , width , height);
-        if (periud == 5) {
-            frameCounter += 1;
-            periud = 0;
-        }
+        // Меняем кадр каждые frameDuration секунд
+        frameCounter = (int)(animationTime / frameDuration) % framesArray.length;
+
+        batch.draw(framesArray[frameCounter], x, y, width, height);
     }
     public void dispose(){
         texture.dispose();
