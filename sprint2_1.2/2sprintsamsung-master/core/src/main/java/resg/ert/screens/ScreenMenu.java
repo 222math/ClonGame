@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import resg.ert.Main;
+import resg.ert.characters.Bird;
 import resg.ert.components.MovingBackground;
 import resg.ert.components.TextButton;
 
@@ -15,8 +16,10 @@ public class ScreenMenu implements Screen {
 
     MovingBackground movingBackground;
 
-    TextButton textButton1;
-    TextButton textButton2;
+    TextButton textButtonStartGame;
+    TextButton textButtonExit;
+    TextButton textButtonSkin;
+    Bird bird;
 
     int x , y;
 
@@ -24,8 +27,10 @@ public class ScreenMenu implements Screen {
     public ScreenMenu(Main main) {
         this.main = main;
         movingBackground = new MovingBackground("background/menu_bg.png");
-        textButton1 = new TextButton(300 , 350 , "start game" , "button/button_bg.png");
-        textButton2 = new TextButton(300 , 150 , "exit" , "button/button_red.png");
+        textButtonStartGame = new TextButton(240 , 200 , "start game" , "button/button_bg.png" , 800 , 200);
+        textButtonExit = new TextButton(900 , 50 , "exit" , "button/button_red.png" , 350 , 150);
+        textButtonSkin = new TextButton(725 , 375 , "skin" , "button/button_blue.png" , 300 , 200);
+        bird = new Bird(240 , 450 , 0 , 300 , 250  , main);
     }
 
     @Override
@@ -40,12 +45,16 @@ public class ScreenMenu implements Screen {
             Vector3 touch = main.camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
             x = (int) touch.x;
             y = (int) touch.y;
-            if (textButton1.IsHit(x, y)) {
+            if (textButtonStartGame.IsHit(x, y)) {
                 ScreenGame screenGame = new ScreenGame(main , true);
                 main.setScreen(screenGame);
             }
-            if (textButton2.IsHit(x, y)) {
+            if (textButtonExit.IsHit(x, y)) {
                 Gdx.app.exit();
+            }
+            if (textButtonSkin.IsHit(x , y)){
+                main.newSkin();
+                bird = new Bird(240 , 450 , 0 , 300 , 250  , main);
             }
         }
 
@@ -56,14 +65,13 @@ public class ScreenMenu implements Screen {
         main.camera.update();
         main.batch.setProjectionMatrix(main.camera.combined);
         main.batch.begin();
-
         movingBackground.draw(main.batch);
-        textButton1.drow(main.batch);
-        textButton2.drow(main.batch);
-
+        textButtonStartGame.drow(main.batch);
+        textButtonExit.drow(main.batch);
+        textButtonSkin.drow(main.batch);
+        bird.draw(main.batch);
         main.batch.end();
     }
-
     @Override
     public void resize(int width, int height) {
 
@@ -86,6 +94,10 @@ public class ScreenMenu implements Screen {
 
     @Override
     public void dispose() {
-
+        movingBackground.dispose();
+        textButtonStartGame.dispose();
+        textButtonExit.dispose();
+        textButtonSkin.dispose();
+        bird.dispose();
     }
 }

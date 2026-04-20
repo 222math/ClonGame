@@ -35,14 +35,14 @@ public class ScreenRestart implements Screen {
         this.gamePoint = gamePoints;
 
         movingBackground = new MovingBackground("background/restart_bg.png");
-        textButtonRestart = new TextButton(300 , 350 , "restart" , "button/button_bg.png");
-        textButtonInMenu = new TextButton(300 , 125 , "in menu" , "button/button_red.png");
+        textButtonRestart = new TextButton(300 , 350 , "restart" , "button/button_bg.png" , 700 , 200);
+        textButtonInMenu = new TextButton(300 , 125 , "in menu" , "button/button_red.png" , 700 , 200);
         screenGame = new ScreenGame(main , true);
         pointCounter = new PointCounter(25 , 100);
         main.IsMaxGamePoint(gamePoint);
         maxGamePoint = new MaxGamePoint(350 , 650 , main.maxGamePoint);
         screenMenu = new ScreenMenu(main);
-
+        main.gamePoints = 0;
     }
 
 
@@ -106,6 +106,8 @@ public class ScreenRestart implements Screen {
     public void dispose() {
     textButtonRestart.dispose();
     maxGamePoint.dispose();
-
+    movingBackground.dispose();
+    textButtonInMenu.dispose();
+    pointCounter.dispose();
     }
 }

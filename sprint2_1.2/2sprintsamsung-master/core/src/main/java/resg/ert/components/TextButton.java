@@ -17,11 +17,12 @@ public class TextButton {
     int textX , textY;
     int textWidth , textHeight;
     int buttonWidth = 700, buttonHeight = 200;
-    public TextButton(int x , int y , String text , String pathToTexture){
+    public TextButton(int x , int y , String text , String pathToTexture , int width , int height){
         this.x = x;
         this.y = y;
         this.text = text;
-
+        this.buttonWidth = width;
+        this.buttonHeight = height;
         font = new BitmapFont();
         font.getData().setScale(5f);
         font.setColor(Color.WHITE);

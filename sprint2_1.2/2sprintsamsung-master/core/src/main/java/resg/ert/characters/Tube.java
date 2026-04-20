@@ -1,13 +1,9 @@
 package resg.ert.characters;
-
 import static resg.ert.Main.SCR_HEIGHT;
 import static resg.ert.Main.SCR_WIDTH;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-
 import java.util.Random;
-
 public class Tube {
 
     Texture textureUpperTube;

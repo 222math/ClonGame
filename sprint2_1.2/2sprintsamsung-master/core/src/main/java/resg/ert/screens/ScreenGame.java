@@ -14,7 +14,6 @@ import resg.ert.components.PointCounter;
 public class ScreenGame implements Screen {
 
     Main main;
-
     Bird bird;
     Tube tube;
     MovingBackground movingBackground;
@@ -27,7 +26,6 @@ public class ScreenGame implements Screen {
     boolean next;
     Tube[] tubes;
     MovingBackground[] backgrounds;
-    int gamePoints;
     public boolean isGameOver;
 
     private void initTubes(){
@@ -40,7 +38,7 @@ public class ScreenGame implements Screen {
 
     public ScreenGame(Main main ,boolean next) {
         this.main = main;
-        bird = new Bird(300, 500 , 500 , 200 , 175 );
+        bird = new Bird(300, 500 , 500 , 200 , 175  , main);
         pointCounter = new PointCounter(25 , 100);
         movingBackground = new  MovingBackground("background/game_bg.png");
         initTubes();
@@ -53,12 +51,7 @@ public class ScreenGame implements Screen {
 
     @Override
     public void show() {
-        isGameOver = false;
-        if (next) {
-            gamePoints = 0;
-        } else {
-            gamePoints += 10;
-        }
+
     }
 
     @Override
@@ -69,12 +62,12 @@ public class ScreenGame implements Screen {
         System.out.println("Screen Height: " + Gdx.graphics.getHeight());
         System.out.println("SCR_HEIGHT: " + Main.SCR_HEIGHT);
         System.out.println("DeltaTime: " + Gdx.graphics.getDeltaTime());
-        System.out.println("Game Points: " + gamePoints);
+        System.out.println("Game Points: " + main.gamePoints);
 
 
 
         if (isGameOver){
-            screenRestart = new ScreenRestart(this.main , gamePoints);
+            screenRestart = new ScreenRestart(this.main , main.gamePoints);
             main.setScreen(screenRestart);
         }
 
@@ -95,12 +88,12 @@ public class ScreenGame implements Screen {
                 isGameOver = true;
                 System.out.println("hit");
             } else if (tube.NeedAddPoint(bird)) {
-                gamePoints += 1;
-                System.out.println(gamePoints);
+                main.gamePoints += 1;
+                System.out.println(main.gamePoints);
                 tube.setPointReceived();
             }
-            if (portals.isInPortal(bird) && gamePoints >= 9 && gamePoints<= 15){
-                screenGameNorm = new ScreenGameNorm(this.main , gamePoints);
+            if (portals.isInPortal(bird) && main.gamePoints >= 9 && main.gamePoints<= 15){
+                screenGameNorm = new ScreenGameNorm(this.main);
                 main.setScreen(screenGameNorm);
             }
         }
@@ -122,13 +115,13 @@ public class ScreenGame implements Screen {
 
         for (Tube tube : tubes) {
             tube.drow(main.batch);
-            if (gamePoints >= 7 && tube.tubeInx == 1){
+            if (main.gamePoints >= 7 && tube.tubeInx == 1 && main.gamePoints<=11){
                 portals.drow(main.batch , tube.x , (tube.gapY/ + tube.gapHeight));
             }
         }
 
 
-        pointCounter.draw(main.batch, gamePoints);
+        pointCounter.draw(main.batch, main.gamePoints);
 
 
 

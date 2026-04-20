@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
-
 import resg.ert.Main;
 import resg.ert.characters.Bird;
 import resg.ert.characters.Portals;
@@ -31,15 +30,13 @@ public class ScreenGameNorm implements Screen {
             thorns[i] = new Thorns(i);
         }
     }
-    int gamePoints;
 
-    public ScreenGameNorm(Main main , int gamePoint){
+    public ScreenGameNorm(Main main){
         this.main = main;
-        bird = new Bird(350 , floorY, 200 ,  100 , 100);
+        bird = new Bird(350 , floorY, 200 ,  100 , 100 , main);
         movingBackground = new MovingBackground("background/cube_bg.png");
         floor = new Texture("background/floor.png");
         initThorns();
-        this.gamePoints = gamePoint;
         portals = new Portals();
         pointCounter = new PointCounter(450 , 500);
 
@@ -66,11 +63,11 @@ public class ScreenGameNorm implements Screen {
 
         for (int i = 0; i < thornsCount; i++) {
             if(thorns[i].IsHit(bird)){
-                ScreenRestart screenRestart = new ScreenRestart(this.main , gamePoints);
+                ScreenRestart screenRestart = new ScreenRestart(this.main , main.gamePoints);
                 main.setScreen(screenRestart);
             }
             if (thorns[i].NeedAddPoint(bird)){
-                gamePoints += 1;
+                main.gamePoints += 1;
             }
             if (i == 0){
                 a = 4;
@@ -80,7 +77,7 @@ public class ScreenGameNorm implements Screen {
             thorns[i].move(deltaTime , thorns[a].x);
 
         }
-        if (portals.isInPortal(bird) && gamePoints >= 20 &&gamePoints <= 25){
+        if (portals.isInPortal(bird) && main.gamePoints >= 20 && main.gamePoints <= 25){
             screenGame = new ScreenGame(this.main , false);
             main.setScreen(screenGame);
         }
@@ -104,7 +101,7 @@ public class ScreenGameNorm implements Screen {
         for (int i = 0; i < thornsCount; i++) {
             thorns[i].draw(main.batch);
         }
-        pointCounter.draw(main.batch , gamePoints);
+        pointCounter.draw(main.batch , main.gamePoints);
 
         main.batch.end();
     }

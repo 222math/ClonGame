@@ -43,16 +43,16 @@ public class Bird {
 
 
     Texture texture;
-    public Bird(int x, int y , int speed , int width, int height){
+    public Bird(int x, int y , int speed , int width, int height , Main main){
         this.x = x;
         this.y = y;
         this.speed = speed;
         frameCounter = 0;
         framesArray = new Texture[]{
-            new Texture("birdTiles/bird0.png"),
-            new Texture("birdTiles/bird1.png"),
-            new Texture("birdTiles/bird2.png"),
-            new Texture("birdTiles/bird1.png"),
+            new Texture("birdTiles/" + main.skin +"/bird0.png"),
+            new Texture("birdTiles/" + main.skin +"/bird1.png"),
+            new Texture("birdTiles/" + main.skin +"/bird2.png"),
+            new Texture("birdTiles/" + main.skin +"/bird1.png"),
         };
         this.height = height;
         this.width = width;
@@ -120,8 +120,6 @@ public class Bird {
             return true;
         }
     }
-
-
 
 
 

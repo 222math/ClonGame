@@ -16,12 +16,20 @@ public class Main extends Game {
     public static final int SCR_WIDTH = 1280;
     public static final int SCR_HEIGHT = 720;
      public int maxGamePoint;
+     public String skin = "yellow";
      public  void IsMaxGamePoint(int gamePoint){
          if (maxGamePoint < gamePoint){
              maxGamePoint = gamePoint;
          }
      }
-
+     int skinNumber = 0;
+     String[] skins = {"blue" , "yellow"};
+     public void newSkin(){
+         skinNumber +=1;
+         skinNumber %= 2;
+         skin = skins[skinNumber];
+     }
+     public int gamePoints = 0;
     ScreenGame screenGame;
     ScreenRestart screenRestart;
 
@@ -32,8 +40,6 @@ public class Main extends Game {
         camera.setToOrtho(false, SCR_WIDTH, SCR_HEIGHT);
         ScreenMenu screenMenu = new ScreenMenu(this);
         setScreen(screenMenu);
-
-
 
     }
 
