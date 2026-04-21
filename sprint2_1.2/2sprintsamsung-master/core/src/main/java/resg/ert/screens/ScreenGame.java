@@ -110,16 +110,26 @@ public class ScreenGame implements Screen {
         movingBackground.draw(main.batch);
 
 
-        bird.draw(main.batch , deltaTime);
-
 
         for (Tube tube : tubes) {
             tube.drow(main.batch);
             if (main.gamePoints >= 7 && tube.tubeInx == 1 && main.gamePoints<=11){
-                portals.drow(main.batch , tube.x , (tube.gapY/ + tube.gapHeight));
+                portals.drow(main.batch,
+                    tube.x,                           // X как у трубы
+                    tube.gapY - tube.gapHeight / 2
+                );
             }
         }
 
+        bird.draw(main.batch , deltaTime);
+        for (Tube tube : tubes) {
+            if (main.gamePoints >= 7 && tube.tubeInx == 1 && main.gamePoints<=11){
+                portals.drow2(main.batch,
+                    tube.x,                           // X как у трубы
+                    tube.gapY - tube.gapHeight / 2
+                );
+            }
+        }
 
         pointCounter.draw(main.batch, main.gamePoints);
 

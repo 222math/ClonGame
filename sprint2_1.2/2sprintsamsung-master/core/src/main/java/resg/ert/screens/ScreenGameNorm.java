@@ -77,7 +77,10 @@ public class ScreenGameNorm implements Screen {
             thorns[i].move(deltaTime , thorns[a].x);
 
         }
-        if (portals.isInPortal(bird) && main.gamePoints >= 20 && main.gamePoints <= 25){
+
+
+
+        if (portals.isInPortal(bird) && main.gamePoints >= 25 && main.gamePoints <= 25){
             screenGame = new ScreenGame(this.main , false);
             main.setScreen(screenGame);
         }
@@ -97,9 +100,22 @@ public class ScreenGameNorm implements Screen {
         movingBackground.draw(main.batch);
         main.batch.draw( floor, 0 , 0 , main.SCR_WIDTH , floorY);
 
-        bird.draw(main.batch  , deltaTime);
+
         for (int i = 0; i < thornsCount; i++) {
             thorns[i].draw(main.batch);
+            if (main.gamePoints >= 23 && thorns[i].thornsInx == 1) {
+                portals.drow(main.batch,
+                    thorns[i].x,
+                    thorns[i].hied + thorns[i].y);
+            }
+        }
+        bird.draw(main.batch  , deltaTime);
+        for (int i = 0; i < thornsCount; i++) {
+            if (main.gamePoints >= 23 && thorns[i].thornsInx == 1) {
+                portals.drow2(main.batch,
+                    thorns[i].x,
+                    thorns[i].hied + thorns[i].y);
+            }
         }
         pointCounter.draw(main.batch , main.gamePoints);
 

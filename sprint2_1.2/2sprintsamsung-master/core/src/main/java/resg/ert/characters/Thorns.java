@@ -13,13 +13,13 @@ public class Thorns {
     Random r;
     int distance = 500;
     int speed = 300;
-    int width , hied;
-    int  y = 135;
+    public int width , hied;
+    public int  y = 135;
     int ver;
     Texture texture;
     public float x;
     boolean iSPointReceived;
-    int thornsInx;
+    public int thornsInx;
     public Thorns(int thornsInx){
         r = new Random();
         this.thornsInx = thornsInx;
