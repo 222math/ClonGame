@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 
 import CloneGame.Engine.Objects.Person;
 import CloneGame.Engine.Objects.Portal;
+import CloneGame.Engine.Objects.PressurePlate;
 
 public class GameContactListener implements ContactListener {
 
@@ -24,13 +25,20 @@ public class GameContactListener implements ContactListener {
             if (userDataB instanceof Portal){
                 Portal.setInPortal(true);
             }
+
+            if (userDataB instanceof PressurePlate && userDataA instanceof Person) {
+                ((PressurePlate) userDataB).setIsHitPerson(true);
+            }
         }
         if (userDataB instanceof Person){
             ((Person) userDataB).setOnGround(true);
-
             if (userDataA instanceof Portal){
                 Portal.setInPortal(true);
             }
+            if (userDataA instanceof PressurePlate && userDataB instanceof Person) {
+                ((PressurePlate) userDataA).setIsHitPerson(true);
+            }
+
         }
     }
 
@@ -44,9 +52,22 @@ public class GameContactListener implements ContactListener {
 
         if (userDataA instanceof Person){
             ((Person) userDataA).setOnGround(false);
+//            if (userDataB instanceof PressurePlate && userDataA instanceof Person) {
+//                ((PressurePlate) userDataB).setIsHitPerson(false);
+//            }
         }
         if (userDataB instanceof Person){
             ((Person) userDataB).setOnGround(false);
+//            if (userDataA instanceof PressurePlate && userDataB instanceof Person) {
+//                ((PressurePlate) userDataA).setIsHitPerson(false);
+//            }
+
+        }
+        if (userDataA instanceof PressurePlate && userDataB instanceof Person) {
+            ((PressurePlate) userDataA).setIsHitPerson(false);
+        }
+        if (userDataB instanceof PressurePlate && userDataA instanceof Person) {
+            ((PressurePlate) userDataB).setIsHitPerson(false);
         }
     }
 

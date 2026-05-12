@@ -18,6 +18,7 @@ import CloneGame.Engine.Main.Main;
 import CloneGame.Engine.Objects.Person;
 import CloneGame.Engine.Objects.Platform;
 import CloneGame.Engine.Objects.Portal;
+import CloneGame.Engine.Objects.PressurePlate;
 import CloneGame.Engine.Recording.Record;
 import CloneGame.Engine.Recording.Replay;
 
@@ -30,6 +31,7 @@ public class ScreenGame extends ScreenAdapter {
     Platform platform1;
     Platform platform2;
     Portal portal;
+    PressurePlate pressurePlate;
     TextButton rightMoveButton;
     TextButton leftMoveButton;
     TextButton jumpButton;
@@ -49,6 +51,7 @@ public class ScreenGame extends ScreenAdapter {
         platform1 = new Platform(PERSON_IMG_PATH , 800 , 150 , 400 , 20 , main.world);
         platform2 = new Platform(PERSON_IMG_PATH , 0 , 0 , 200000 , 25 , main.world);
         portal = new Portal("img_1.png" , 0 ,25 , 30 , 150 , main.world);
+        pressurePlate = new PressurePlate("img_1.png" , 900 , 157 , 100 , 15 , main.world);
         record = new Record();
         portal.setInPortal(false);
     }
@@ -113,7 +116,7 @@ public class ScreenGame extends ScreenAdapter {
                 }
                 if (replayButton.IsHit(worldX, worldY) && !rec && record.getPositions().size() > 0) {
                     rep = true;
-                    replay = new Replay(record.getPositions(), PERSON_IMG_PATH); // ИСПОЛЬЗУЙТЕ PERSON_IMG_PATH вместо "img.png"
+                    replay = new Replay(record.getPositions(), record.getPlate() , PERSON_IMG_PATH); // ИСПОЛЬЗУЙТЕ PERSON_IMG_PATH вместо "img.png"
                     System.out.println("Replay created with " + record.getPositions().size() + " positions");
                 }
 
@@ -137,9 +140,11 @@ public class ScreenGame extends ScreenAdapter {
             main.setScreen(screenMenu);
 
         }
+        pressurePlate.update(delta);
 
     }
     public void draw(){
+        float delta = Gdx.graphics.getDeltaTime();
         main.camera.update();
         main.batch.setProjectionMatrix(main.camera.combined);
         ScreenUtils.clear(Color.CLEAR);
@@ -155,6 +160,7 @@ public class ScreenGame extends ScreenAdapter {
         recordStartButton.draw(main.batch);
         recordEndButton.draw(main.batch);
         replayButton.draw(main.batch);
+        pressurePlate.draw(main.batch);
         platform1.draw(main.batch);
         platform2.draw(main.batch);
         // В ScreenGame.draw():
@@ -171,8 +177,13 @@ public class ScreenGame extends ScreenAdapter {
             }
         } else if (replay != null && !replay.isPlaying()) {
             rep = false;
+            replay.setTimer(0);
+        }
+        if (rep){
+            replay.setTimer(replay.getTimer() + delta);
         }
         portal.draw(main.batch);
+
 
         main.batch.end();
     }

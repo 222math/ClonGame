@@ -35,7 +35,7 @@ public class GameObject {
         return (int) (body.getPosition().x / SCALE);
     }
 
-    public int getY() {
+    public float getY() {
         return (int) (body.getPosition().y / SCALE);
     }
 
@@ -43,7 +43,7 @@ public class GameObject {
         body.setTransform(x * SCALE, body.getPosition().y, 0);
     }
 
-    public void setY(int y) {
+    public void setY(float y) {
         body.setTransform(body.getPosition().x, y * SCALE, 0);
     }
 
